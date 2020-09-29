@@ -1,0 +1,30 @@
+import numpy as np
+import pandas as pd
+from sklearn.cluster import KMeans
+
+df = pd.read_csv('/users/shin/documents/ruspini5.csv', index_col=0)
+#print(df)
+
+Data = df.values
+print(Data)
+print(type(Data))
+
+x= Data[:,0]
+#print(x)
+y= Data[:,1]
+#print(y)
+plt.scatter(x,y,c="black")
+plt.show()
+
+#print(Data)
+kmeans_mod = KMeans(n_clusters=4)
+cluster = kmeans_mod.fit_predict(Data)
+#print(cluster)
+
+#可視化
+plt.scatter(Data[cluster==0,0],Data[cluster==0,1],color="r")
+plt.scatter(Data[cluster==1,0],Data[cluster==1,1],color="b")
+plt.scatter(Data[cluster==2,0],Data[cluster==2,1],color="g")
+plt.scatter(Data[cluster==3,0],Data[cluster==3,1],color="orange")
+#plt.scatter(kmeans_mod.cluster_centers_[:,0],kmeans_mod.cluster_centers_[:,1],color=["r","b","g","orange"])
+plt.show()

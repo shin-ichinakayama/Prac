@@ -1,0 +1,5 @@
+df <- read.csv("cluster.csv")
+distance <- dist(df)
+hc <- hclust(distance, "single")
+plot(hc)
+#plot(df, col="blue", pch=19)

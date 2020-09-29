@@ -1,0 +1,55 @@
+import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
+from scipy.cluster.hierarchy import linkage, dendrogram, fcluster
+
+df = pd.read_csv('/users/shin/documents/ruspini.csv', index_col=0)
+#print(df)
+
+Data = df.values
+#print(Data)
+
+linkage_result = linkage(Data, method='single', metric='euclidean')
+#print(linkage_result)
+#plt.figure(num=None, figsize=(16, 9), dpi=200, facecolor='w', edgecolor='k')
+plt.figure(num=None, dpi=200,facecolor='w', edgecolor='k')
+dendrogram(linkage_result)
+plt.show()
+
+
+------------------------------------------------------------------
+
+import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
+from scipy.cluster.hierarchy import linkage, dendrogram, fcluster
+
+df = pd.read_csv('/users/shin/documents/ruspini.csv', index_col=0)
+#print(df)
+
+Data = df.values
+#print(Data)
+
+linkage_result = linkage(Data, method='single', metric='euclidean')
+
+
+# クラスタ分けするしきい値を決める（クラスター数が4になる20で設定）
+threshold = 20 
+
+# 階層型クラスタリングの可視化
+plt.figure(num=None, figsize=(16, 9), dpi=200, facecolor='w', edgecolor='k')
+dendrogram(linkage_result, color_threshold=threshold)
+plt.show()
+
+# クラスタリング結果の値を取得
+cluster = fcluster(linkage_result, threshold, criterion='distance')
+
+# クラスタリング結果を比較
+print(cluster)
+
+plt.scatter(Data[cluster==1,0],Data[cluster==1,1],color="r")
+plt.scatter(Data[cluster==2,0],Data[cluster==2,1],color="b")
+plt.scatter(Data[cluster==3,0],Data[cluster==3,1],color="g")
+plt.scatter(Data[cluster==4,0],Data[cluster==4,1],color="orange")
+#plt.scatter(kmeans_mod.cluster_centers_[:,0],kmeans_mod.cluster_centers_[:,1],color=["r","b","g","orange"])
+plt.show()

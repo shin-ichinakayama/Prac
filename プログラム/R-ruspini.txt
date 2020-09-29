@@ -1,0 +1,25 @@
+library(cluster)              
+plot(ruspini, asp=1, pch=20)
+
+ruspini_distance <- dist(ruspini)
+
+ruspini_result <-  hclust(ruspini_distance, method = "single")
+
+plot(ruspini_result)
+
+
+------------------------------------
+
+library(cluster)              #ライブラリ読み込み
+plot(ruspini, asp=1, pch=20)　　#データ確認のたえ散布図表示
+
+ruspini_distance <- dist(ruspini)　#距離を求める
+
+ruspini_result <-  hclust(ruspini_distance, method = "single")　#階層的クラスタリング実行
+
+plot(ruspini_result)　#樹形図表示
+
+color4 = cutree(ruspini_result,k=4)　#色分けするため樹形図よりクラスターを4つに分類
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+plot(ruspini, pch=20, asp=1, col=color4)　#クラスターを色分けした樹形図を表示
+

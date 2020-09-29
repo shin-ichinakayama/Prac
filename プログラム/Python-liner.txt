@@ -1,0 +1,30 @@
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+
+df = pd.read_csv('/users/shin/documents/cars.csv', index_col=0)
+#print(df)
+
+x = df.speed
+y = df.dist
+
+plt.plot(x, y, 'o')
+plt.show()
+
+x = df[['speed']]
+y = df[['dist']]
+
+model = LinearRegression()
+model.fit(x, y)
+ 
+plt.plot(x, y, 'o')
+plt.plot(x, model.predict(x), linestyle="solid", color="red")
+plt.show()
+
+
+
+print('単回帰方程式の回帰変数 w1: %.3f' %model.coef_)
+print('単回帰方程式の切片 w2: %.3f'%model.intercept_)
+print('単回帰方程式 ： y= %.3fx + %.3f' % (model.coef_ , model.intercept_))
+print('決定係数 R^2： ', model.score(x, y))
